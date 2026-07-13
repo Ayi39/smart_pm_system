@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Reports{% endblock %}
+{% block content %}
+<h2>Project Reports</h2>
+<table class="task-table">
+    <tr><th>Project</th><th>Total Tasks</th><th>Completed Tasks</th><th>Completion %</th></tr>
+    {% for r in report_data %}
+    <tr>
+        <td>{{ r.project_name }}</td>
+        <td>{{ r.total_tasks }}</td>
+        <td>{{ r.completed_tasks or 0 }}</td>
+        <td>
+            {% if r.total_tasks %}
+                {{ ((r.completed_tasks or 0) / r.total_tasks * 100) | round(1) }}%
+            {% else %}
+                0%
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

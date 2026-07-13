@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Manage Users{% endblock %}
+{% block content %}
+<h2>Manage Users</h2>
+<p style="color: var(--text-soft); margin-bottom: 16px;">
+    Only administrators can view this page and change a user's role.
+</p>
+
+<table class="task-table">
+    <tr><th>Name</th><th>Email</th><th>Current Role</th><th>Change Role</th></tr>
+    {% for u in users %}
+    <tr>
+        <td>{{ u.full_name }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.role }}</td>
+        <td>
+            <form method="POST" action="{{ url_for('update_user_role', user_id=u.user_id) }}">
+                <select name="role" onchange="this.form.submit()">
+                    <option value="admin" {% if u.role == 'admin' %}selected{% endif %}>Admin</option>
+                    <option value="manager" {% if u.role == 'manager' %}selected{% endif %}>Manager</option>
+                    <option value="team_member" {% if u.role == 'team_member' %}selected{% endif %}>Team Member</option>
+                </select>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

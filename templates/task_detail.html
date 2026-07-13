@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}{{ task.title }}{% endblock %}
+{% block content %}
+<h2>{{ task.title }}</h2>
+<p style="color: var(--text-soft); margin-bottom: 18px;">
+    Project: {{ task.project_name }} &nbsp;|&nbsp;
+    Assigned to: {{ task.assignee_name or "Unassigned" }} &nbsp;|&nbsp;
+    Deadline: {{ task.deadline }} &nbsp;|&nbsp;
+    Priority: {{ task.priority }} &nbsp;|&nbsp;
+    Status: {{ task.status }}
+</p>
+
+<div class="panel" style="margin-bottom: 20px;">
+    <h3>Description</h3>
+    <p>{{ task.description or "No description provided." }}</p>
+</div>
+
+<div class="panel">
+    <h3>Comments</h3>
+    {% for c in comments %}
+    <div style="padding: 10px 0; border-bottom: 1px solid var(--border);">
+        <strong>{{ c.full_name }}</strong>
+        <span class="timestamp">{{ c.created_at }}</span>
+        <p>{{ c.comment_text }}</p>
+    </div>
+    {% else %}
+    <p style="color: var(--text-soft);">No comments yet.</p>
+    {% endfor %}
+
+    <form method="POST" action="{{ url_for('add_comment', task_id=task.task_id) }}" style="margin-top: 16px;">
+        <label>Add a comment</label>
+        <textarea name="comment_text" rows="3" required></textarea>
+        <button type="submit" class="btn-primary">Post Comment</button>
+    </form>
+</div>
+{% endblock %}

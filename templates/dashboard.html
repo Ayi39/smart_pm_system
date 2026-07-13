@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2>Dashboard</h2>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <h3>{{ total_projects }}</h3>
+        <p>Total Projects</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ open_tasks }}</h3>
+        <p>Open Tasks</p>
+    </div>
+</div>
+
+<div class="dashboard-panels">
+    <div class="panel">
+        <h3>Upcoming Deadlines</h3>
+        <table>
+            <tr><th>Task</th><th>Deadline</th><th>Status</th></tr>
+            {% for t in upcoming_deadlines %}
+            <tr><td>{{ t.title }}</td><td>{{ t.deadline }}</td><td>{{ t.status }}</td></tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="panel">
+        <h3>Team Workload</h3>
+        <table>
+            <tr><th>Team Member</th><th>Assigned Tasks</th></tr>
+            {% for w in workload %}
+            <tr><td>{{ w.full_name }}</td><td>{{ w.task_count }}</td></tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+<script>
+    setTimeout(function () {
+        location.reload();
+    }, 30000);
+</script>
+{% endblock %}
