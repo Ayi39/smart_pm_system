@@ -23,7 +23,7 @@ app.secret_key = "replace-this-with-a-long-random-secret-key"
 # Database connection settings
 # Update these to match your local MySQL setup
 # ---------------------------------------------------------
- import os
+import os
 
 DB_CONFIG = {
     "host": os.environ.get("DB_HOST", "localhost"),
