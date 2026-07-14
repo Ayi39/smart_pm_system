@@ -23,11 +23,15 @@ app.secret_key = "replace-this-with-a-long-random-secret-key"
 # Database connection settings
 # Update these to match your local MySQL setup
 # ---------------------------------------------------------
+ import os
+
 DB_CONFIG = {
-    "host": "localhost",
-    "user": "root",
-    "password": "@Root123",          # set your MySQL root password here
-    "database": "sme_task_management"
+    "host": os.environ.get("DB_HOST", "localhost"),
+    "user": os.environ.get("DB_USER", "root"),
+    "password": os.environ.get("DB_PASSWORD", ""),
+    "database": os.environ.get("DB_NAME", "sme_task_management"),
+    "port": int(os.environ.get("DB_PORT", 3306))
+}
 }
 
 
